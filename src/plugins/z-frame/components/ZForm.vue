@@ -1,55 +1,67 @@
 <template>
 <view class="z-form">
-  <van-cell-group>
-    <van-field
-        :value="state.username"
-        label="用户名"
-        placeholder="请输入用户名"
-        @change="onSetProp(['username'], $event)"
-    />
-    <van-field
-        :value="state.phone"
-        label="手机号"
-        placeholder="请输入手机号"
-        error-message="手机号格式错误"
-        :border="false"
-        @change="onSetProp(['phone'], $event)"
-    />
-    <z-collection :items="state.items" @add="onAdd(['items'], $event)">
-      <block v-for="(item1,index1) in state.items" >
-        <van-field
-            :value="state.items[index1].name"
-            :label="index1 +'.name' "
-            @change="onSetProp(['items', index1, 'name'], $event)"
-        />
-        <van-button @click="onDel(['items'], index1)">-</van-button>
+
+  <view class="level_1 z-form__object"  label-width='150px'
+        v-if="parts.form2.model"
+  >
+    <view class="level_2 z-form__prop"  scroll-control='page_name'
+    >
+      <van-field
+          v-model="parts.form2.model.name"
+          label="name"
+          @change="onSetProp(['form2', 'model' ,'name'], $event)">
+      </van-field>
+    </view>
+    <z-collection class="level_2 z-form__array "  scroll-control='page_slotArr'
+                  @add="onAdd(['form2', 'model' ,'layoutSlotArr'], $event)"
+    >
+      <block v-for="(item2, index2) in parts.form2.model.layoutSlotArr"
+             class="z-form__array-con a-space-mb-20"  :name='"slot"+index2'
+      >
+        <view class="level_3 z-form__prop"
+        >
+          <van-field
+              v-model="parts.form2.model.layoutSlotArr[index2].name"
+              label="name"
+              @change="onSetProp(['form2', 'model' ,'layoutSlotArr', index2, 'name'], $event)">
+          </van-field>
+        </view>
+        <view class="level_3 z-form__prop"
+        >
+          <van-field
+              v-model="parts.form2.model.layoutSlotArr[index2].prop1"
+              label="prop1"
+              @change="onSetProp(['form2', 'model' ,'layoutSlotArr', index2, 'prop1'], $event)">
+          </van-field>
+        </view>
       </block>
     </z-collection>
-  </van-cell-group>
-  <van-field
-      :value="state.level1.level2.username"
-      label="用户名"
-      placeholder="请输入用户名"
-      @change="onSetProp(['level1', 'level2', 'username'], $event)"
-  />
+  </view>
 </view>
 </template>
 
-<script lang="ts">
-import { reactive } from 'vue';
-import { lodash } from '../index';
+<script>
+import { reactive, watch, toRaw } from 'vue';
+import { lodash, JSON5, diff } from '@/plugins/z-frame/index';
+import { initPart } from '@/plugins/z-frame/components/ZForm';
 
 export default {
   name: 'ZForm',
   setup() {
-    const state = reactive({
-      username: '',
-      items: [],
-      level1: {
-        level2: {
-        },
-      },
+    const config = JSON5.parse(`{constants:{},parts:[{type:'form2',name:'form2',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['label-width','150px']]},properties:{name:{type:'string',ui:{attrs:[['scroll-control','page_name']],class:['a-space-pt-20'],widget:'van-field',widgetConfig:{enums:"ROOT_STATE('tools.constVars_pageNames', [])"}}},layoutSlotArr:{type:'array',ui:{label:'Slot',attrs:[['scroll-control','page_slotArr']],conAttrs:[{prefixValue:'"slot"+',handler:['c','return [":name", c.indexKey]']}],conClass:['a-space-mb-20']},items:{type:'object',properties:{name:{type:'string',ui:{widget:'van-field',widgetConfig:{suggest:[{label:'Form After',value:'form_after'}]}}},prop1:{type:'string',reflect:'name',reflectTpl:'$VAL'}}}}}},computed:{pagePropertiesComp:"A.getBeforeScript(MODEL('props'))",doubled:"MODEL('events[0].name', '')",layoutSlotArrComputed:"A.slotArrToStr(MODEL('layoutSlotArr'))",processes:"map(MODEL('events', []), v => v.name)"},service:'ServiceJ5CnFHgdga57QhYD1s3a2'}],process:'o582V2U4si5QEqzewnyVA',servicePartLink:{form2:'ServiceJ5CnFHgdga57QhYD1s3a2'}}`);
+
+    const partControl = {}
+    const obj = {};
+
+    config.parts.forEach((part) => {
+      partControl[part.name] = initPart(part)
+      obj[part.name] = partControl[part.name];
     });
+
+    const parts = reactive(obj);
+
+    console.log(parts)
+    partControl.form2.detect(parts.form2.model);
 
     function getPath(pathArr = []) {
       let path = '';
@@ -64,25 +76,25 @@ export default {
     }
 
     function onSetProp(pathArr, e) {
-      // console.log('onSetProp', path, e);
       const path = getPath(pathArr);
-      lodash.set(state, path, e.detail);
+      // console.log('onSetProp', path, e);
+      lodash.set(parts, path, e.detail);
     }
 
     function onAdd(pathArr, e) {
       const path = getPath(pathArr);
-      const arr = lodash.get(state, path);
+      const arr = lodash.get(parts, path);
       arr.push({});
     }
 
     function onDel(pathArr, index, e) {
       const path = getPath(pathArr);
-      const arr = lodash.get(state, path);
+      const arr = lodash.get(parts, path);
       arr.splice(index, 1);
     }
 
     return {
-      state,
+      parts,
       onSetProp,
       onAdd,
       onDel,
@@ -90,7 +102,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>
