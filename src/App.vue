@@ -11,6 +11,9 @@ export default defineComponent({
   onHide() {
     console.log('App Hide');
   },
+  getStr() {
+    return 'str';
+  },
 });
 </script>
 <style>
