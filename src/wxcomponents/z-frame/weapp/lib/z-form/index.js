@@ -1,4 +1,5 @@
 const component_1 = require('../common/component');
+const FORM_CONFIG = require('./config');
 
 component_1.VantComponent({
   methods: {
@@ -7,6 +8,6 @@ component_1.VantComponent({
     },
   },
   mounted() {
-    console.log('mounted');
+    console.log('mounted', FORM_CONFIG);
   },
 });

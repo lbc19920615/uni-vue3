@@ -3,8 +3,8 @@
 <view class="z-form">hello</view>
 
 <block wx:for="{{[1, 2, 3]}}">
-<view style="display: flex">
+<z-row >
     <view> {{index}}: </view>
     <view> {{item}} </view>
-</view>
+</z-row >
 </block>
