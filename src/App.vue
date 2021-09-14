@@ -17,7 +17,5 @@ export default defineComponent({
 /*每个页面公共css */
 /* vant - weapp */
 @import '/wxcomponents/@vant/weapp/dist/common/index.wxss';
-
-/* tailwindcss */
-/*@import 'tailwindcss/tailwind.css';*/
+@import '../node_modules/suitcss-utils-size/index.css';
 </style>
