@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import { reactive, watch, toRaw } from 'vue';
-import { lodash, JSON5, diff } from '@/plugins/z-frame/index';
-import { initPart } from '@/plugins/z-frame/components/ZForm';
+import { reactive, } from 'vue';
+import { JSON5 } from '@/plugins/z-frame/index';
+import {initPart, useModelHandler} from '@/plugins/z-frame/components/ZForm';
 
 export default {
   name: 'ZForm',
@@ -60,44 +60,18 @@ export default {
 
     const parts = reactive(obj);
 
-    console.log(parts)
+    // console.log(parts)
     partControl.form2.detect(parts.form2.model);
 
-    function getPath(pathArr = []) {
-      let path = '';
-      pathArr.forEach((item, index) => {
-        if (index < 1) {
-          path = item;
-        } else {
-          path = `${path}[${item}]`;
-        }
-      });
-      return path;
-    }
 
-    function onSetProp(pathArr, e) {
-      const path = getPath(pathArr);
-      // console.log('onSetProp', path, e);
-      lodash.set(parts, path, e.detail);
-    }
+    let handlers = useModelHandler({
+      parts
+    })
 
-    function onAdd(pathArr, e) {
-      const path = getPath(pathArr);
-      const arr = lodash.get(parts, path);
-      arr.push({});
-    }
-
-    function onDel(pathArr, index, e) {
-      const path = getPath(pathArr);
-      const arr = lodash.get(parts, path);
-      arr.splice(index, 1);
-    }
 
     return {
       parts,
-      onSetProp,
-      onAdd,
-      onDel,
+      ...handlers
     };
   },
 };

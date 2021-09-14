@@ -88,14 +88,14 @@ export function initPart(partDef) {
       const diffed = diff(oldObj, newObj);
       // console.log('diffed', diffed);
       cachedModel = JSON5.stringify(newObj);
-      console.log('watch', newObj, oldObj);
+      // console.log('watch', newObj, oldObj);
       reflectMap.forEach((arr, reflectMapKey) => {
         const hasDiffedChange = lodash.get(diffed, reflectMapKey);
         if (hasDiffedChange) {
           lodash.each(hasDiffedChange, (svalue, skey) => {
             if (typeof svalue !== 'undefined') {
               const fullPath = `${reflectMapKey}.${skey}`;
-              console.log(`${fullPath} changed`, svalue);
+              // console.log(`${fullPath} changed`, svalue);
               /**
                * modelTarget 是 object 或 array
                */
@@ -122,5 +122,43 @@ export function initPart(partDef) {
   return {
     model: obj,
     detect,
+  };
+}
+
+export function useModelHandler({parts}) {
+  function getPath(pathArr = []) {
+    let path = '';
+    pathArr.forEach((item, index) => {
+      if (index < 1) {
+        path = item;
+      } else {
+        path = `${path}[${item}]`;
+      }
+    });
+    return path;
+  }
+
+  function onSetProp(pathArr, e) {
+    const path = getPath(pathArr);
+    // console.log('onSetProp', path, e);
+    lodash.set(parts, path, e.detail);
+  }
+
+  function onAdd(pathArr, e) {
+    const path = getPath(pathArr);
+    const arr = lodash.get(parts, path);
+    arr.push({});
+  }
+
+  function onDel(pathArr, index, e) {
+    const path = getPath(pathArr);
+    const arr = lodash.get(parts, path);
+    arr.splice(index, 1);
+  }
+
+  return {
+    onSetProp,
+    onAdd,
+    onDel,
   };
 }
