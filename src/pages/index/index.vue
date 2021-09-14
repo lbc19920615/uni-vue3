@@ -11,9 +11,7 @@
     <view>
       <text class="less-style">less style</text>
     </view>
-    <view>
-      <text class="text-xl font-bold text-red-500">tailwindcss</text>
-    </view>
+    <view class="u-sizeFull">sdsdsds</view>
   </view>
 </template>
 
