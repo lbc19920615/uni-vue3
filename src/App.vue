@@ -3,6 +3,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   onLaunch() {
+    
     console.log('App Launch');
   },
   onShow() {
