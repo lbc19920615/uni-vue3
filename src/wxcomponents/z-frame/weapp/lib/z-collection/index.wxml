@@ -1,8 +1,5 @@
 <view>
     <van-button bind:click="onAdd">+</van-button>
 
-    <block wx:for="{{items}}">
-        1
-    </block>
     <slot></slot>
 </view>

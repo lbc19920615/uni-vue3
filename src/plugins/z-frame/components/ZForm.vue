@@ -15,16 +15,23 @@
         :border="false"
         @change="onSetProp(['phone'], $event)"
     />
-    <z-collection :items="state.items" @add="onAdd('items', $event)">
-      <block v-for="(item1,index1) in state.items">
+    <z-collection :items="state.items" @add="onAdd(['items'], $event)">
+      <block v-for="(item1,index1) in state.items" >
         <van-field
             :value="state.items[index1].name"
             :label="index1 +'.name' "
             @change="onSetProp(['items', index1, 'name'], $event)"
         />
+        <van-button @click="onDel(['items'], index1)">-</van-button>
       </block>
     </z-collection>
   </van-cell-group>
+  <van-field
+      :value="state.level1.level2.username"
+      label="用户名"
+      placeholder="请输入用户名"
+      @change="onSetProp(['level1', 'level2', 'username'], $event)"
+  />
 </view>
 </template>
 
@@ -38,10 +45,13 @@ export default {
     const state = reactive({
       username: '',
       items: [],
+      level1: {
+        level2: {
+        },
+      },
     });
 
-    function onSetProp(pathArr, e) {
-      // console.log('onSetProp', path, e);
+    function getPath(pathArr = []) {
       let path = '';
       pathArr.forEach((item, index) => {
         if (index < 1) {
@@ -50,19 +60,32 @@ export default {
           path = `${path}[${item}]`;
         }
       });
-      console.log(path)
+      return path;
+    }
+
+    function onSetProp(pathArr, e) {
+      // console.log('onSetProp', path, e);
+      const path = getPath(pathArr);
       lodash.set(state, path, e.detail);
     }
 
-    function onAdd(path, e) {
+    function onAdd(pathArr, e) {
+      const path = getPath(pathArr);
       const arr = lodash.get(state, path);
       arr.push({});
+    }
+
+    function onDel(pathArr, index, e) {
+      const path = getPath(pathArr);
+      const arr = lodash.get(state, path);
+      arr.splice(index, 1);
     }
 
     return {
       state,
       onSetProp,
       onAdd,
+      onDel,
     };
   },
 };
