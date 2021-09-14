@@ -1,7 +1,6 @@
 <template>
   <view class="content">
-    <z-form></z-form>
-<!--    <image class="logo" src="../../static/logo.png"></image>-->
+    <z-form form-id="sdsdsdsdsd"></z-form>
     <view>
       <text class="title">{{ title }}</text>
     </view>
@@ -12,16 +11,6 @@
     <view>
       <text class="less-style">less style</text>
     </view>
-    {{state.username}}
-    <view class="u-sizeFull">
-      <van-field
-          :value="state.username"
-          label="用户名"
-          placeholder="请输入用户名"
-          input-align="right"
-          @change="onChange('username', $event)"
-      />
-    </view>
   </view>
 </template>
 
@@ -30,11 +19,11 @@
 import { defineComponent, reactive } from 'vue';
 import VuexDemo from '@/components/VuexDemo.vue';
 import { userApi } from '@/api';
+import ZForm from "@/plugins/z-frame/components/ZForm.vue";
 
 export default defineComponent({
   setup() {
     const state = reactive({
-      username: '',
     });
 
     const handleHttp = () => {
@@ -48,19 +37,14 @@ export default defineComponent({
         });
     };
 
-    function onChange(name, e) {
-      // console.log('onChange', name, e);
-      state.username = e.detail;
-    }
 
     return {
       title: 'hello',
       state,
-      onChange,
       handleHttp,
     };
   },
-  components: { VuexDemo },
+  components: {ZForm, VuexDemo },
 });
 </script>
 

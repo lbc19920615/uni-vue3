@@ -65,6 +65,7 @@
     "core-js": "^3.6.5",
     "eval5": "^1.4.6",
     "flyio": "^0.6.2",
+    "lodash": "^4.17.21",
     "regenerator-runtime": "^0.12.1",
     "suitcss-utils-flex": "^2.0.1",
     "suitcss-utils-size": "^2.0.1",
