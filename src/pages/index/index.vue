@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+
 import { defineComponent } from 'vue';
 import VuexDemo from '@/components/VuexDemo.vue';
 import { userApi } from '@/api';
