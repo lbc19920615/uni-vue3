@@ -11,18 +11,31 @@
     <view>
       <text class="less-style">less style</text>
     </view>
-    <view class="u-sizeFull">sdsdsds</view>
+    {{state.username}}
+    <view class="u-sizeFull">
+      <van-field
+          :value="state.username"
+          label="用户名"
+          placeholder="请输入用户名"
+          input-align="right"
+          @change="onChange('username', $event)"
+      />
+    </view>
   </view>
 </template>
 
 <script lang="ts">
 
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import VuexDemo from '@/components/VuexDemo.vue';
 import { userApi } from '@/api';
 
 export default defineComponent({
   setup() {
+    const state = reactive({
+      username: '',
+    });
+
     const handleHttp = () => {
       userApi
         .login('account', '123456')
@@ -33,8 +46,16 @@ export default defineComponent({
           console.log(err);
         });
     };
+
+    function onChange(name, e) {
+      // console.log('onChange', name, e);
+      state.username = e.detail;
+    }
+
     return {
       title: 'hello',
+      state,
+      onChange,
       handleHttp,
     };
   },
