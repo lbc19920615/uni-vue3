@@ -82,6 +82,7 @@
     "@dcloudio/vue-cli-plugin-uni-optimize": "^2.0.0",
     "@dcloudio/webpack-uni-mp-loader": "^2.0.0",
     "@dcloudio/webpack-uni-pages-loader": "^2.0.0",
+    "@tailwindcss/postcss7-compat": "^2.2.14",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -104,7 +105,6 @@
     "postcss-class-rename": "^1.0.1",
     "postcss-comment": "^2.0.0",
     "sass-loader": "10.0.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^3.0.0"
   },
   "browserslist": [

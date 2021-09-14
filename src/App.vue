@@ -19,5 +19,5 @@ export default defineComponent({
 @import '/wxcomponents/@vant/weapp/dist/common/index.wxss';
 
 /* tailwindcss */
-@import 'tailwindcss/tailwind.css';
+/*@import 'tailwindcss/tailwind.css';*/
 </style>
