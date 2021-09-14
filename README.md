@@ -13,6 +13,10 @@ uni-app vue3-ts 模板项目
 
 ![图片](https://img.cdn.sugarat.top/mdImg/MTYyNDM3NjI0ODcyMg==624376248723)
 
+### 截图
+
+![图片](splashs/page1.png)
+
 ### dev
 * [x] eslint
 * [x] sass
