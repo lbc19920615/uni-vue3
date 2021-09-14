@@ -1,0 +1,3 @@
+<view data-z-row-flex="{{flex}}" data-z-row-wrap="{{wrap}}"
+      data-z-row-justify-content="{{justify}}"
+      data-z-row-align-items="{{align}}"><slot></slot></view>

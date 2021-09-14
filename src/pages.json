@@ -17,7 +17,8 @@
 		"backgroundColor": "#F8F8F8",
 		"usingComponents": {
 			"van-button": "/wxcomponents/@vant/weapp/dist/button/index",
-			"van-field": "/wxcomponents/@vant/weapp/dist/field/index"
+			"van-field": "/wxcomponents/@vant/weapp/dist/field/index",
+			"z-row": "/wxcomponents/z-frame/weapp/lib/z-row/index"
 		}
 	}
 }

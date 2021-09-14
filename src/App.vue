@@ -16,9 +16,12 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style >
 /*每个页面公共css */
 /* vant - weapp */
 @import '/wxcomponents/@vant/weapp/dist/common/index.wxss';
 @import '../node_modules/suitcss-utils-size/index.css';
+</style>
+<style lang="scss">
+@import './plugins/z-frame/index.scss';
 </style>

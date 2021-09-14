@@ -1,0 +1,21 @@
+$justify-items: center, space-between, flex-start, flex-end, space-around;
+$align-items: center, flex-start, flex-end, stretch, baseline;
+[data-z-row-flex] {
+  display: flex;
+}
+[data-z-row-inline-flex] {
+  display: inline-flex;
+}
+[data-z-row-wrap] {
+  flex: wrap;
+}
+@each $item in $justify-items {
+  [data-z-row-justify-content=#{$item}] {
+    justify-content: $item;
+  }
+}
+@each $item in $align-items {
+  [data-z-row-align-items=#{$item}] {
+    align-items: $item;
+  }
+}

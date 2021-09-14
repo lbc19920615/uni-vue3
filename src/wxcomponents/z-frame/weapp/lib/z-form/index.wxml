@@ -1,1 +1,10 @@
+<z-row justify="center">flex</z-row>
+
 <view class="z-form">hello</view>
+
+<block wx:for="{{[1, 2, 3]}}">
+<view style="display: flex">
+    <view> {{index}}: </view>
+    <view> {{item}} </view>
+</view>
+</block>
