@@ -1,7 +1,9 @@
-import { reactive, watch, toRaw } from 'vue';
+import { computed, toRaw, watch } from 'vue';
 import eval5 from 'eval5';
+import App from '@/App.vue';
 import { createFormModel } from '@/plugins/z-frame/formModel';
 import { diff, JSON5, lodash } from '@/plugins/z-frame';
+import { autoVal } from '@/plugins/z-frame/comHelper';
 
 function formDefTravase(formDef = {}, computedLinks, ext = { path: '', reflectMap: {} }) {
   if (formDef.type === 'object') {
@@ -59,15 +61,15 @@ function formDefTravase(formDef = {}, computedLinks, ext = { path: '', reflectMa
   }
 }
 
-export function initPart(partDef) {
+export function initPart(partDef, CONFIG) {
+  // console.log('CONFIG', CONFIG)
   const partName = partDef.name;
   const rowDef = partDef.def;
   const computedLinks = {
   };
   const reflectMap = new Map();
-  const ret = {
-  };
-  const computed = {};
+  const computedModel = {};
+  const computedProps = partDef.computed ? partDef.computed : {};
   const obj = createFormModel(rowDef);
   formDefTravase(rowDef, computedLinks, {
     path: '',
@@ -86,9 +88,25 @@ export function initPart(partDef) {
       }
       const oldObj = JSON5.parse(cachedModel);
       const diffed = diff(oldObj, newObj);
-      // console.log('diffed', diffed);
+      // console.log('diffed', diffed, computedLinks, computedModel);
       cachedModel = JSON5.stringify(newObj);
       // console.log('watch', newObj, oldObj);
+
+      lodash.each(computedLinks, (computedLinkRelatedPath, computedLinkKey) => {
+        lodash.each(computedLinkRelatedPath, (findKeyItem) => {
+          // console.log(computedLinkRelatedPathItem)
+
+          autoVal({
+            obj: model,
+            key: findKeyItem.key,
+            base: model,
+            computedVal(key) {
+              return computedModel[computedLinkKey](model);
+            },
+          });
+        });
+      });
+
       reflectMap.forEach((arr, reflectMapKey) => {
         const hasDiffedChange = lodash.get(diffed, reflectMapKey);
         if (hasDiffedChange) {
@@ -119,13 +137,24 @@ export function initPart(partDef) {
     });
   }
 
+  lodash.each(computedProps, (computedItem, computedkey) => {
+    computedModel[computedkey] = (model) => eval5(computedItem, {
+      MODEL(path, defaultVal) {
+        return lodash.get(model, path, defaultVal);
+      },
+      ...lodash,
+      A: App,
+    });
+  });
+
   return {
     model: obj,
     detect,
+    computedModel,
   };
 }
 
-export function useModelHandler({parts}) {
+export function useModelHandler({ parts }) {
   function getPath(pathArr = []) {
     let path = '';
     pathArr.forEach((item, index) => {

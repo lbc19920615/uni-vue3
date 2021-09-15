@@ -14,6 +14,13 @@ export default defineComponent({
   getStr() {
     return 'str';
   },
+  getBeforeScript() {
+    return 'getBeforeScript';
+  },
+  slotArrToStr(v) {
+    // console.log('slotArrToStr', v)
+    return v;
+  },
 });
 </script>
 <style >

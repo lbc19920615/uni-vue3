@@ -12,6 +12,14 @@
           @change="onSetProp(['form2', 'model' ,'name'], $event)">
       </van-field>
     </view>
+    <view class="level_2 z-form__prop"
+    >
+      <van-field
+          v-model="parts.form2.model.name1"
+          label="name1"
+          @change="onSetProp(['form2', 'model' ,'name1'], $event)">
+      </van-field>
+    </view>
     <z-collection class="level_2 z-form__array "  scroll-control='page_slotArr'
                   @add="onAdd(['form2', 'model' ,'layoutSlotArr'], $event)"
     >
@@ -37,25 +45,32 @@
       </block>
     </z-collection>
   </view>
+
 </view>
 </template>
 
 <script>
-import { reactive, } from 'vue';
+import {computed, reactive} from 'vue';
 import { JSON5 } from '@/plugins/z-frame/index';
-import {initPart, useModelHandler} from '@/plugins/z-frame/components/ZForm';
+import { initPart, useModelHandler } from '@/plugins/z-frame/components/ZForm';
 
 export default {
   name: 'ZForm',
   setup() {
-    const config = JSON5.parse(`{constants:{},parts:[{type:'form2',name:'form2',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['label-width','150px']]},properties:{name:{type:'string',ui:{attrs:[['scroll-control','page_name']],class:['a-space-pt-20'],widget:'van-field',widgetConfig:{enums:"ROOT_STATE('tools.constVars_pageNames', [])"}}},layoutSlotArr:{type:'array',ui:{label:'Slot',attrs:[['scroll-control','page_slotArr']],conAttrs:[{prefixValue:'"slot"+',handler:['c','return [":name", c.indexKey]']}],conClass:['a-space-mb-20']},items:{type:'object',properties:{name:{type:'string',ui:{widget:'van-field',widgetConfig:{suggest:[{label:'Form After',value:'form_after'}]}}},prop1:{type:'string',reflect:'name',reflectTpl:'$VAL'}}}}}},computed:{pagePropertiesComp:"A.getBeforeScript(MODEL('props'))",doubled:"MODEL('events[0].name', '')",layoutSlotArrComputed:"A.slotArrToStr(MODEL('layoutSlotArr'))",processes:"map(MODEL('events', []), v => v.name)"},service:'ServiceJ5CnFHgdga57QhYD1s3a2'}],process:'o582V2U4si5QEqzewnyVA',servicePartLink:{form2:'ServiceJ5CnFHgdga57QhYD1s3a2'}}`);
+    const config = JSON5.parse(`{constants:{},parts:[{type:'form2',name:'form2',serviceTpl:{def:{},args:{src:'bservice.twig'}},def:{type:'object',ui:{attrs:[['label-width','150px']]},properties:{name:{type:'string',ui:{attrs:[['scroll-control','page_name']],class:['a-space-pt-20'],widget:'van-field',widgetConfig:{enums:"ROOT_STATE('tools.constVars_pageNames', [])"}}},name1:{type:'string',computedProp:'layoutSlotArrComputed'},layoutSlotArr:{type:'array',ui:{label:'Slot',attrs:[['scroll-control','page_slotArr']],conAttrs:[{prefixValue:'"slot"+',handler:['c','return [":name", c.indexKey]']}],conClass:['a-space-mb-20']},items:{type:'object',properties:{name:{type:'string',ui:{widget:'van-field',widgetConfig:{suggest:[{label:'Form After',value:'form_after'}]}}},prop1:{type:'string',reflect:'name',reflectTpl:'$VAL'}}}}}},computed:{layoutSlotArrComputed:"A.slotArrToStr(MODEL('name'))"},service:'ServiceJ5CnFHgdga57QhYD1s3a2'}],process:'o582V2U4si5QEqzewnyVA',servicePartLink:{form2:'ServiceJ5CnFHgdga57QhYD1s3a2'}}`);
 
-    const partControl = {}
+    const partControl = {};
     const obj = {};
+    const computedModel = {}
 
     config.parts.forEach((part) => {
-      partControl[part.name] = initPart(part)
-      obj[part.name] = partControl[part.name];
+      partControl[part.name] = initPart(part, config);
+      // console.log(partControl[part.name])
+
+      obj[part.name] = {
+        model: partControl[part.name].model,
+      };
+      // computedModel[part.name] = partControl[part.name].computedModel
     });
 
     const parts = reactive(obj);
@@ -63,15 +78,16 @@ export default {
     // console.log(parts)
     partControl.form2.detect(parts.form2.model);
 
-
-    let handlers = useModelHandler({
-      parts
-    })
+    const handlers = useModelHandler({
+      parts,
+    });
 
 
     return {
+      // doubled: partControl.form2.computedModel.layoutSlotArrComputed,
+      // doubled,
       parts,
-      ...handlers
+      ...handlers,
     };
   },
 };
