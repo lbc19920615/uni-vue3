@@ -1,16 +1,16 @@
 <template>
   <view class="content">
     <z-form form-id="sdsdsdsdsd"></z-form>
-    <view>
-      <text class="title">{{ title }}</text>
-    </view>
-    <van-button type="primary">Vant UI测试</van-button>
-    <view><text>Vuex4 Demo</text></view>
-    <VuexDemo />
-    <van-button type="primary" @click="handleHttp">Login 测试</van-button>
-    <view>
-      <text class="less-style">less style</text>
-    </view>
+<!--    <view>-->
+<!--      <text class="title">{{ title }}</text>-->
+<!--    </view>-->
+<!--    <van-button type="primary">Vant UI测试</van-button>-->
+<!--    <view><text>Vuex4 Demo</text></view>-->
+<!--    <VuexDemo />-->
+<!--    <van-button type="primary" @click="handleHttp">Login 测试</van-button>-->
+<!--    <view>-->
+<!--      <text class="less-style">less style</text>-->
+<!--    </view>-->
   </view>
 </template>
 
@@ -19,7 +19,7 @@
 import { defineComponent, reactive } from 'vue';
 import VuexDemo from '@/components/VuexDemo.vue';
 import { userApi } from '@/api';
-import ZForm from "@/plugins/z-frame/components/ZForm.vue";
+import ZForm from '@/plugins/z-frame/components/Zform1.vue';
 
 export default defineComponent({
   setup() {
@@ -37,14 +37,13 @@ export default defineComponent({
         });
     };
 
-
     return {
       title: 'hello',
       state,
       handleHttp,
     };
   },
-  components: {ZForm, VuexDemo },
+  components: { ZForm, VuexDemo },
 });
 </script>
 
