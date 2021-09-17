@@ -5,10 +5,10 @@
 <!--        :value="state.currentDate"-->
 <!--        @input="onChange(['currentDate'], $event)"-->
 <!--    ></van-datetime-picker>-->
-    <ZDateTimePicker
+    <zv-date-time-picker
         :datetime="state.currentDate"
         @change="onChange(['currentDate'], $event)"
-    ></ZDateTimePicker>
+    ></zv-date-time-picker>
     <z-form form-id="sdsdsdsdsd"></z-form>
 <!--    <view>-->
 <!--      <text class="title">{{ title }}</text>-->
@@ -32,7 +32,6 @@ import { userApi } from '@/api';
 import ZForm from '@/plugins/z-frame/components/Zform1.vue';
 import { getPath } from '@/plugins/z-frame/components/ZForm.js';
 import { lodash } from '@/plugins/z-frame';
-import ZDateTimePicker from '@/plugins/z-form/components/ZDatetimePicker.vue';
 
 export default defineComponent({
 
@@ -69,7 +68,7 @@ export default defineComponent({
       handleHttp,
     };
   },
-  components: { ZDateTimePicker, ZForm, VuexDemo },
+  components: {ZForm, VuexDemo },
 });
 </script>
 

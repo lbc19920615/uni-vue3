@@ -22,5 +22,11 @@
 			"z-row": "/wxcomponents/z-frame/weapp/lib/z-row/index",
 			"z-collection": "/wxcomponents/z-frame/weapp/lib/z-collection/index"
 		}
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^zv-(.*)": "@/components/zv-$1.vue"
+		}
 	}
 }
