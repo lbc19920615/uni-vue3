@@ -147,9 +147,18 @@ export function initPart(partDef, CONFIG) {
     });
   });
 
+  function init(model) {
+    // console.log(rowDef, partDef);
+    const defaultVal = partDef.defaultVal ? partDef.defaultVal : {};
+    for (const [key, value] of Object.entries(defaultVal)) {
+      lodash.set(model, key, value);
+    }
+  }
+
   return {
     model: obj,
     detect,
+    init,
     computedModel,
   };
 }
@@ -176,7 +185,13 @@ export function useModelHandler({ parts }) {
   function onAdd(pathArr, e) {
     const path = getPath(pathArr);
     const arr = lodash.get(parts, path);
-    arr.push({});
+    if (Array.isArray(arr)) {
+      arr.push({});
+    } else {
+      lodash.set(parts, path, []);
+      const newArr = lodash.get(parts, path);
+      newArr.push({});
+    }
   }
 
   function onDel(pathArr, index, e) {
