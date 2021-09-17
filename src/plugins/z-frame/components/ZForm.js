@@ -163,19 +163,19 @@ export function initPart(partDef, CONFIG) {
   };
 }
 
-export function useModelHandler({ parts }) {
-  function getPath(pathArr = []) {
-    let path = '';
-    pathArr.forEach((item, index) => {
-      if (index < 1) {
-        path = item;
-      } else {
-        path = `${path}[${item}]`;
-      }
-    });
-    return path;
-  }
+export function getPath(pathArr = []) {
+  let path = '';
+  pathArr.forEach((item, index) => {
+    if (index < 1) {
+      path = item;
+    } else {
+      path = `${path}[${item}]`;
+    }
+  });
+  return path;
+}
 
+export function useModelHandler({ parts }) {
   function onSetProp(pathArr, e) {
     const path = getPath(pathArr);
     // console.log('onSetProp', path, e);

@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -17,6 +17,8 @@
 		"usingComponents": {
 			"van-button": "/wxcomponents/@vant/weapp/dist/button/index",
 			"van-field": "/wxcomponents/@vant/weapp/dist/field/index",
+			"van-popup": "/wxcomponents/@vant/weapp/dist/popup/index",
+			"van-datetime-picker": "/wxcomponents/@vant/weapp/dist/datetime-picker/index",
 			"z-row": "/wxcomponents/z-frame/weapp/lib/z-row/index",
 			"z-collection": "/wxcomponents/z-frame/weapp/lib/z-collection/index"
 		}
