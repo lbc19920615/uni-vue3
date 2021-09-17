@@ -1,10 +1,17 @@
+<style>
+.zv-date-time-picker-cell {
+  text-align: left;
+}
+</style>
+
 <template>
 <div>
 <!--  {{state.open}}-->
- <z-row>
-   <view>{{formated}}</view>
-   <van-button @click="openPopup()">打开时间</van-button>
- </z-row>
+
+  <van-cell class="zv-date-time-picker-cell" center :title="formated">
+<!--    <view slot="title">{{formated}}</view>-->
+    <van-button size="small" slot="right-icon"  @click="openPopup()">打开时间</van-button>
+  </van-cell>
   <van-popup
       position="bottom" :show="state.open" @close="onClose"
   >
@@ -34,7 +41,7 @@ export default {
   data() {
     return {
       value: '',
-      formated: ''
+      formated: '',
     };
   },
   watch: {
@@ -49,12 +56,12 @@ export default {
     resolveVal(newVal) {
       // console.log('sdsds', newVal);
       this.value = Time.dayjs(newVal).valueOf();
-      this.formated = newVal
+      this.formated = newVal;
     },
     onChange(e) {
       // this.value = Time.formatDateTime(e.detail);
-      let value = Time.formatDateTime(e.detail);
-      this.formated = value
+      const value = Time.formatDateTime(e.detail);
+      this.formated = value;
       this.$emit('change', {
         detail: value,
       });

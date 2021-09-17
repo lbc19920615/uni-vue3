@@ -16,6 +16,7 @@
 		"backgroundColor": "#F8F8F8",
 		"usingComponents": {
 			"van-button": "/wxcomponents/@vant/weapp/dist/button/index",
+			"van-cell": "/wxcomponents/@vant/weapp/dist/cell/index",
 			"van-field": "/wxcomponents/@vant/weapp/dist/field/index",
 			"van-popup": "/wxcomponents/@vant/weapp/dist/popup/index",
 			"van-datetime-picker": "/wxcomponents/@vant/weapp/dist/datetime-picker/index",
