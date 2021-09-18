@@ -5,10 +5,10 @@
 </style>
 
 <template>
-<div>
+<view>
 <!--  {{state.open}}-->
 
-  <van-cell class="zv-date-time-picker-cell" center :title="formated">
+  <van-cell class="zv-date-time-picker-cell" :border="false" center :title="formated">
 <!--    <view slot="title">{{formated}}</view>-->
     <van-button size="small" slot="right-icon"  @click="openPopup()">打开时间</van-button>
   </van-cell>
@@ -24,7 +24,7 @@
     ></van-datetime-picker>
   </van-popup>
 
-</div>
+</view>
 </template>
 
 <script>

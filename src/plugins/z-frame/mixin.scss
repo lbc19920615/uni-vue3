@@ -1,0 +1,15 @@
+@mixin z-border1px() {
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: center;
+  content: " ";
+  pointer-events: none;
+  right: 16px;
+  bottom: 0;
+  left: 16px;
+  border-bottom: 1px solid #ebedf0;
+  transform: scaleY(.5);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(235, 237, 240);
+}

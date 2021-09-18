@@ -4,8 +4,7 @@ import App from './App.vue';
 import store from './store/index';
 
 const Form = {
-  install(app) {
-
+  install() {
   },
 };
 

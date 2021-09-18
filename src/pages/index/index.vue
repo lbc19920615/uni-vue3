@@ -5,10 +5,6 @@
 <!--        :value="state.currentDate"-->
 <!--        @input="onChange(['currentDate'], $event)"-->
 <!--    ></van-datetime-picker>-->
-    <zv-date-time-picker
-        :datetime="state.currentDate"
-        @change="onChange(['currentDate'], $event)"
-    ></zv-date-time-picker>
     <z-form form-id="sdsdsdsdsd"></z-form>
 <!--    <view>-->
 <!--      <text class="title">{{ title }}</text>-->
@@ -27,7 +23,7 @@
 import {
   defineComponent, onBeforeUnmount, reactive, toRaw,
 } from 'vue';
-import VuexDemo from '@/components/VuexDemo.vue';
+// import VuexDemo from '@/components/VuexDemo.vue';
 import { userApi } from '@/api';
 import ZForm from '@/plugins/z-frame/components/Zform1.vue';
 import { getPath } from '@/plugins/z-frame/components/ZForm.js';
@@ -68,7 +64,7 @@ export default defineComponent({
       handleHttp,
     };
   },
-  components: {ZForm, VuexDemo },
+  components: { ZForm },
 });
 </script>
 
